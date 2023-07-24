@@ -1,5 +1,6 @@
 <script lang='ts'>
   import ImageUploader from '$lib/components/ImageUploader.svelte';
+  import ImageList from '$lib/components/ImageList.svelte';
 
   // Variable to store the selected images
   let selectedImages: File[] = [];
@@ -18,16 +19,7 @@
 
 <section>
   <ImageUploader on:change={handleImageChange} on:drop={handleImageChange} />
-
-  <div>
-    <h2>Selected Images</h2>
-    <ul>
-      {#each selectedImages as image}
-        <li>{image.name}</li>
-        <img src={URL.createObjectURL(image)} />
-      {/each}
-    </ul>
-  </div>
+  <ImageList selectedImages={selectedImages} />
 </section>
 
 <style>
