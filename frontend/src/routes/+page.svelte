@@ -1,6 +1,7 @@
 <script lang='ts'>
   import ImageUploader from '$lib/components/ImageUploader.svelte';
   import ImageList from '$lib/components/ImageList.svelte';
+  import ResetButton from '$lib/components/ResetButton.svelte';
 
   // Variable to store the selected images
   let selectedImages: File[] = [];
@@ -19,6 +20,9 @@
 
 <section>
   <ImageUploader on:change={handleImageChange} on:drop={handleImageChange} />
+  <div class="buttons">
+    <ResetButton />
+  </div>
   <ImageList selectedImages={selectedImages} />
 </section>
 
@@ -30,4 +34,11 @@
 		align-items: center;
 		flex: 0.6;
 	}
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+  }
 </style>

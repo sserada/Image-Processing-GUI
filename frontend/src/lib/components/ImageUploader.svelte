@@ -76,7 +76,7 @@
     color: #eee;
     background-color: #333;
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
   }
 
