@@ -1,7 +1,12 @@
 <script>
+  import Header from '$lib/components/Header.svelte';
 </script>
 
 <div class="app">
+
+  <header>
+    <Header />
+  </header>
 
 	<main>
 		<slot />
@@ -27,15 +32,11 @@
 		box-sizing: border-box;
 	}
 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
+  header {
+    position: sticky;
+    top: 20;
+    z-index: 1;
+    margin: 40px auto;
+    padding: 0 5rem;
+  }
 </style>

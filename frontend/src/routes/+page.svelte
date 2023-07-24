@@ -1,12 +1,7 @@
-<script lang="ts">
-import Header from '$lib/components/Header.svelte';
-</script>
-
 <svelte:head>
 	<title>Image Processing UI</title>
 </svelte:head>
 
-<Header />
 
 <section>
 </section>
