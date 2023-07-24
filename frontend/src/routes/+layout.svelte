@@ -34,9 +34,9 @@
 
   header {
     position: sticky;
-    top: 20;
     z-index: 1;
-    margin: 40px auto;
+    margin: 0 auto;
+    margin-top: 8rem;
     padding: 0 5rem;
   }
 </style>
