@@ -3,6 +3,11 @@
   import ImageList from '$lib/components/ImageList.svelte';
   import ResetButton from '$lib/components/ResetButton.svelte';
 
+  import { generateUUID } from '$lib/generateUUID';
+
+  // Variable to store the id of the current session
+  let id: string = generateUUID();
+
   // Variable to store the selected images
   let selectedImages: File[] = [];
 
