@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, UploadFile, Request
 import uvicorn
+import json
 import os
 
 app = FastAPI()
@@ -8,10 +9,10 @@ connected_clients = []
 @app.websocket('/backend/websocket/{client_id}')
 async def upload_endpoint(websocket: WebSocket, client_id: str):
     await websocket.accept()
-    connected_clients.add(websocket)
+    connected_clients.append(websocket)
     try:
         while True:
-            data = await websocket.receive_json()
+            data = await websocket.receive_text()
             print(data)
     except:
         connected_clients.remove(websocket)

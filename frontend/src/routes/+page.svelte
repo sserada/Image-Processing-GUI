@@ -24,7 +24,7 @@
 
   // Function to handle the send event
   function handleSendImage() {
-    connection = openSocket(`ws://localhost:80/websocket/${id}`);
+    connection = openSocket(`ws://0.0.0.0:80/backend/websocket/${id}`);
     sendImage(connection, selectedImages);
   }
 </script>
@@ -32,7 +32,6 @@
 <svelte:head>
 	<title>Image Processing UI</title>
 </svelte:head>
-
 
 <section>
   <ImageUploader on:change={handleImageChange} on:drop={handleImageChange} />
@@ -59,3 +58,4 @@
     margin: 1rem;
   }
 </style>
+
