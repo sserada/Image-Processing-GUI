@@ -17,7 +17,7 @@ services:
       core:
         hard: 0
         soft: 0
-    command: bash -c 'npm install && npm run dev'
+    command: sh -c 'npm install && npm run dev'
 
   backend:
     build: ./backend
