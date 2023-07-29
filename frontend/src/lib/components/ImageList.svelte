@@ -10,7 +10,7 @@
     </tr>
     {#each selectedImages as image}
       <tr>
-        <td><img src={URL.createObjectURL(image)} alt={image.name} /></td>
+        <td><p>{image.name}</p></td>
         <td><img src={URL.createObjectURL(image)} alt={image.name} /></td>
       </tr>
     {/each}

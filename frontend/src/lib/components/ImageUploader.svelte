@@ -7,18 +7,14 @@
   // Handler for the image selection event
   function handleImageChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files) {
-      dispatch('change', Array.from(input.files));
-    }
+    if (input.files) dispatch('change', Array.from(input.files));
   }
 
   // Handler for the drop event
   function handleDrop(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer?.files;
-    if (files) {
-      dispatch('drop', Array.from(files));
-    }
+    if (files) dispatch('drop', Array.from(files));
   }
 
   // Prevent the default behavior for the dragover event

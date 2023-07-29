@@ -5,7 +5,8 @@
   import ResetButton from '$lib/components/ResetButton.svelte';
 
   import { generateUUID } from '$lib/generateUUID';
-  import { openSocket, sendImage } from '$lib/websocket';
+  import { openSocket } from '$lib/openSocket';
+  import { sendImage } from '$lib/sendImage';
 
   // Variable to store the id of the current session
   let id: string = generateUUID();
@@ -24,8 +25,10 @@
 
   // Function to handle the send event
   function handleSendImage() {
-    connection = openSocket(`ws://0.0.0.0:80/backend/websocket/${id}`);
-    sendImage(connection, selectedImages);
+    connection = openSocket(`ws://localhost:80/backend/websocket/${id}`);
+    connection.onopen = () => {
+      sendImage(connection, selectedImages);
+    };
   }
 </script>
 
