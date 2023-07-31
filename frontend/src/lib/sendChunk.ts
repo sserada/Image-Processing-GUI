@@ -1,8 +1,8 @@
-export function sendImage(connection: WebSocket, selectedImage: File) {
+export async function sendChunk(selectedImage: File, connection: WebSocket) {
   for (let i = 0; i < selectedImage.length; i++) {
     const reader = new FileReader();
     reader.readAsDataURL(selectedImage[i]);
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       let chunks = [];
       const chunkSize = 1024;
       const name = selectedImage[i].name;
@@ -16,7 +16,7 @@ export function sendImage(connection: WebSocket, selectedImage: File) {
           data: chunks[i],
           total: chunks.length - 1,
         };
-        console.log('Sending Chunk ', i);
+        console.log(data);
         connection.send(JSON.stringify(data));
       }
     };

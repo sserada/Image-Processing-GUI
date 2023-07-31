@@ -6,10 +6,10 @@
 
   import { generateUUID } from '$lib/generateUUID';
   import { openSocket } from '$lib/openSocket';
-  import { sendImage } from '$lib/sendImage';
+  import { sendChunk } from '$lib/sendChunk';
 
   // Variable to store the id of the current session
-  let id: string = generateUUID();
+  const id: string = generateUUID();
 
   // Variable to store the selected images
   let selectedImages: File[] = [];
@@ -27,7 +27,8 @@
   function handleSendImage() {
     connection = openSocket(`ws://localhost:80/backend/websocket/${id}`);
     connection.onopen = () => {
-      sendImage(connection, selectedImages);
+      // Send the images
+      sendChunk(selectedImages, connection);
     };
   }
 </script>

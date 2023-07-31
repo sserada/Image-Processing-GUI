@@ -2,9 +2,13 @@ from fastapi import FastAPI, WebSocket, UploadFile, Request
 import uvicorn
 import json
 import os
+import base64
+from PIL import Image
 
 app = FastAPI()
 connected_clients = []
+
+images = {}
 
 @app.websocket('/backend/websocket/{client_id}')
 async def upload_endpoint(websocket: WebSocket, client_id: str):
@@ -12,8 +16,15 @@ async def upload_endpoint(websocket: WebSocket, client_id: str):
     connected_clients.append(websocket)
     try:
         while True:
-            data = await websocket.receive_text()
-            print(data)
+            data = await websocket.receive_json()
+            if (images.get(str(data['name']).split('.')[0]) == None):
+                images[str(data['name']).split('.')[0]] = ''
+            images[str(data['name']).split('.')[0]] += str(data['data'])
+            if data['index'] == data['total']:
+                print(str(images[str(data['name']).split('.')[0]]))
+                format, image = images[str(data['name']).split('.')[0]].split(',')
+                with open('image.png', 'wb') as f:
+                    f.write(base64.b64decode(image))
     except:
         connected_clients.remove(websocket)
 
