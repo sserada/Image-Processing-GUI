@@ -22,6 +22,9 @@ services:
   backend:
     build: ./backend
     container_name: 'backend'
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
     ports:
       - '8000:8000'
     volumes:

@@ -23,8 +23,11 @@ async def upload_endpoint(websocket: WebSocket, client_id: str):
             if data['index'] == data['total']:
                 print(str(images[str(data['name']).split('.')[0]]))
                 format, image = images[str(data['name']).split('.')[0]].split(',')
-                with open('image.png', 'wb') as f:
+                if not os.path.exists('images/' + str(client_id)):
+                    os.makedirs('images/' + str(client_id))
+                with open('images/' + str(client_id) + '/' + str(data['name']), 'wb') as f:
                     f.write(base64.b64decode(image))
+                images[str(data['name']).split('.')[0]] = ''
     except:
         connected_clients.remove(websocket)
 
