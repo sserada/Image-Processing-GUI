@@ -9,7 +9,7 @@
   import { sendChunk } from '$lib/sendChunk';
 
   // Variable to store the id of the current session
-  const id: string = generateUUID();
+  const clientId: string = generateUUID();
 
   // Variable to store the selected images
   let selectedImages: File[] = [];
@@ -25,7 +25,7 @@
 
   // Function to handle the send event
   function handleSendImage() {
-    connection = openSocket(`ws://localhost:80/backend/websocket/${id}`);
+    connection = openSocket(`ws://localhost:80/backend/websocket/${clientId}`);
     connection.onopen = () => {
       // Send the images
       sendChunk(selectedImages, connection);

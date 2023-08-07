@@ -32,6 +32,22 @@ services:
     command: bash -c 'python main.py'
     restart: always
 
+  api:
+    container_name: 'api'
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8001
+    shm_size: '5gb'
+    tty: true
+    ports:
+      - '8001:8001'
+    volumes:
+      - ./api:/usr/src/app
+    command: bash -c 'python main.py'
+
   nginx:
     image: nginx:1.23.1-alpine
     ports:
