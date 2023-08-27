@@ -48,19 +48,19 @@ services:
       - ./api:/usr/src/app
     command: bash -c 'python main.py'
 
-  nginx:
-    image: nginx:1.23.1-alpine
+  api2:
+    container_name: 'api2'
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8002
+    shm_size: '5gb'
+    tty: true
     ports:
-      - '80:80'
-    expose:
-      - 80
+      - '8002:8002'
     volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-    ulimits:
-      core:
-        hard: 0
-        soft: 0
-    depends_on:
-      - frontend
-      - backend
+      - ./api:/usr/src/app
+    command: bash -c 'python main.py'
 
