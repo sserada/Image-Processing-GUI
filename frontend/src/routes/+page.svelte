@@ -17,6 +17,10 @@
   // Variable to store the websocket
   let connection: WebSocket;
 
+  // Variable to store the response from the server
+  let receivedStrings: string[] = [];
+  let processedImages: string[] = [];
+
   // Function to handle the change event
   function handleImageChange(images: File[]) {
     // Save the selected images
@@ -25,10 +29,22 @@
 
   // Function to handle the send event
   function handleSendImage() {
-    connection = openSocket(`ws://localhost:80/backend/websocket/${clientId}`);
+    connection = openSocket(`ws://localhost:8000/backend/websocket/${clientId}`);
     connection.onopen = () => {
       // Send the images
       sendChunk(selectedImages, connection);
+    };
+    connection.onmessage = (event) => {
+      // Save the response
+      let response = JSON.parse(event.data);
+      if (receivedStrings[response['name']] == undefined) receivedStrings[response['name']] = '';
+      receivedStrings[response['name']] += response['data'];
+      console.log(response['index'], response['total']);
+      if (response['index'] == response['total']) {
+        console.log('done');
+        processedImages[response['name']] = 'data:image/png;base64,' + receivedStrings[response['name']];
+        receivedStrings[response['name']] = '';
+      }
     };
   }
 </script>
@@ -43,7 +59,7 @@
     <SendButton on:send={handleSendImage} />
     <ResetButton />
   </div>
-  <ImageList selectedImages={selectedImages} />
+  <ImageList selectedImages={selectedImages} processedImages={processedImages} />
 </section>
 
 <style>

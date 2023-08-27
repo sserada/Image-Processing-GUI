@@ -1,17 +1,24 @@
 <script lang='ts'>
   export let selectedImages: FileList;
+  export let processedImages: string[];
 </script>
 
 <section>
   <table>
     <tr>
-      <td>Selected Images</td>
-      <td>Processed Images</td>
+      {#if selectedImages.length > 0}
+        <td id="headline">Selected Images</td>
+        <td id="headline">Processed Images</td>
+      {/if}
     </tr>
     {#each selectedImages as image}
       <tr>
-        <td><p>{image.name}</p></td>
         <td><img src={URL.createObjectURL(image)} alt={image.name} /></td>
+        {#if processedImages[image.name]}
+          <td><img src={processedImages[image.name]} alt={image.name} /></td>
+          {:else}
+          <td><p>Unprocessed</p></td>
+        {/if}
       </tr>
     {/each}
   </table>
@@ -22,7 +29,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 20px;
   }
 
   tr {
@@ -35,14 +42,24 @@
   }
 
   td {
-    width: 300px;
+    width: 400px;
     border: 1px solid #ddd;
-    padding: 20px;
     text-align: center;
   }
 
+  p {
+    margin-top: 100px;
+  }
+
+  #headline {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 20px;
+  }
+
   img {
-    width: 300px;
+    width: 400px;
+    padding: 5px;
   }
 </style>
 

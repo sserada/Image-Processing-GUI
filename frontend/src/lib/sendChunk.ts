@@ -13,6 +13,7 @@ export async function sendChunk(selectedImage: File, connection: WebSocket) {
         const data = {
           index: i,
           name: name,
+          image_num: selectedImage.length,
           data: chunks[i],
           total: chunks.length - 1,
         };
